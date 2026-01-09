@@ -1,17 +1,16 @@
 [
-  { "id": "AgainPro", "name": "AgainPro", "category": "Unframed" },
-  { "id": "Again", "name": "Again", "category": "Unframed" },
-  { "id": "Replay", "name": "Replay", "category": "Unframed" },
-  { "id": "SmartxideTouch", "name": "SmartxideTouch", "category": "Unframed" },
-  { "id": "Toro", "name": "Toro", "category": "Unframed" },
-  { "id": "Studio", "name": "Studio", "category": "Unframed" },
-  { "id": "QS4", "name": "QS4", "category": "Unframed" },
-  { "id": "SmartPico", "name": "SmartPico", "category": "Unframed" },
-  { "id": "OndaPro", "name": "OndaPro", "category": "Unframed" },
-  { "id": "RedTouch", "name": "RedTouch", "category": "Unframed" },
-  { "id": "ThermaDas", "name": "ThermaDas", "category": "Unframed" },
-  { "id": "4Plus", "name": "4Plus", "category": "Unframed" },
-  { "id": "Multifrax", "name": "Multifrax", "category": "Unframed" },
-  { "id": "Excilite", "name": "Excilite", "category": "Unframed" }
+  { "id": "AgainPro", "name": "Again Pro" },
+  { "id": "Again", "name": "Again" },
+  { "id": "Replay", "name": "Replay" },
+  { "id": "SmartxideTouch", "name": "Smartxide Touch" },
+  { "id": "Toro", "name": "Toro" },
+  { "id": "Studio", "name": "Studio" },
+  { "id": "QS4", "name": "QS4" },
+  { "id": "SmartPico", "name": "Smart Pico" },
+  { "id": "OndaPro", "name": "Onda Pro" },
+  { "id": "RedTouch", "name": "Red Touch" },
+  { "id": "ThermaDas", "name": "Therma Das" },
+  { "id": "4Plus", "name": "4 Plus" },
+  { "id": "Multifrax", "name": "Multifrax" },
+  { "id": "Excilite", "name": "Excilite" }
 ]
-
