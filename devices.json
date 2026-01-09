@@ -1,2 +1,18 @@
+[
+  { "id": "AgainPro", "name": "Again Pro" },
+  { "id": "Again", "name": "Again" },
+  { "id": "Replay", "name": "Replay" },
+  { "id": "SmartxideTouch", "name": "Smartxide Touch" },
+  { "id": "Toro", "name": "Toro" },
+  { "id": "Studio", "name": "Studio" },
+  { "id": "QS4", "name": "QS4" },
+  { "id": "SmartPico", "name": "Smart Pico" },
+  { "id": "OndaPro", "name": "Onda Pro" },
+  { "id": "RedTouch", "name": "Red Touch" },
+  { "id": "ThermaDas", "name": "Therma Das" },
+  { "id": "4Plus", "name": "4 Plus" },
+  { "id": "Multifrax", "name": "Multifrax" },
+  { "id": "Excilite", "name": "Excilite" }
+]
 
 
