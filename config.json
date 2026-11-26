@@ -1,5 +1,7 @@
 {
   "serial_prefix": "DEKA",
   "footer_text": "Certified by DEKA Laser",
-  "logo": "logo.png"
+  "logo": "logo.png",
+  "latest_version": "17.0",
+  "update_message": "Ask Dr. Yasser Sallam for the new installer."
 }
