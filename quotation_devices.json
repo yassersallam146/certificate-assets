@@ -1,13 +1,91 @@
 [
-  { "id": "AgainPro", "name": "Again Pro" },
-  { "id": "SmartxideTouch", "name": "Smartxide Touch" },
-  { "id": "Toro", "name": "Toro" },
-  { "id": "SmartPico", "name": "Smart Pico" },
-  { "id": "OndaPro", "name": "Onda Pro" },
-  { "id": "RedTouch", "name": "Red Touch" },
-  { "id": "ThermaDas", "name": "Therma Das" },
-  { "id": "4Plus", "name": "4 Plus" },
-  { "id": "Multifrax", "name": "Multifrax" },
-  { "id": "Mesojet", "name": "Mesojet" },
-  { "id": "Excilite", "name": "Excilite" }
+  {
+    "id": "AgainProPlus",
+    "name": "Again Pro Plus",
+    "template": "AgainProPlus_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "AgainPro",
+    "name": "Again Pro",
+    "template": "AgainPro_quotation.docx"
+  },
+  {
+    "id": "Again",
+    "name": "Again",
+    "template": "Again_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "Toro",
+    "name": "Toro",
+    "template": "Toro_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "QS4",
+    "name": "QS4",
+    "template": "QS4_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "Studio",
+    "name": "Studio",
+    "template": "Studio_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "SmartPico",
+    "name": "Smart Pico",
+    "template": "SmartPico_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "SmartxideTouch",
+    "name": "Smartxide Touch",
+    "template": "SmartxideTouch_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "RedTouch",
+    "name": "Red Touch",
+    "template": "RedTouch_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "SynchroVasQ",
+    "name": "Synchro VasQ",
+    "template": "SynchroVasQ_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "Excilite",
+    "name": "Excilite",
+    "template": "Excilite_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "OndaPro",
+    "name": "Onda Pro",
+    "template": "OndaPro_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "4Plus",
+    "name": "4 Plus",
+    "template": "4Plus_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "Mesojet",
+    "name": "Mesojet",
+    "template": "Mesojet_quotation.docx",
+    "v": 1795734756
+  },
+  {
+    "id": "Multifrax",
+    "name": "Multifrax",
+    "template": "Multifrax_quotation.docx",
+    "v": 1795734756
+  }
 ]

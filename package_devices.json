@@ -1,0 +1,87 @@
+[
+  {
+    "id": "AgainPro",
+    "name": "AgainPro",
+    "desc": "DEKA Again Pro | Dual-wavelength Alexandrite & Nd:YAG laser | 755nm (Alexandrite). Effective for fine/fair hair removal | 1064nm (Nd:YAG) deeper penetration for darker skin types & vascular/pigment treatments"
+  },
+  {
+    "id": "AgainPro Plus",
+    "name": "AgainPro Plus",
+    "desc": "DEKA Again Pro Plus | Dual-wavelength Alexandrite & Nd:YAG laser | 755nm (Alexandrite). Effective for fine/fair hair removal | 1064nm (Nd:YAG) deeper penetration for darker skin types & vascular/pigment treatments"
+  },
+  {
+    "id": "SmartPico",
+    "name": "SmartPico",
+    "desc": "DEKA SmartPICO | Pico/Nano laser | 1064nm (deep pigment & tattoo) & 532nm (superficial pigment lesions) | Multi-mode: PICO, NANO, Double, Thermal"
+  },
+  {
+    "id": "SmartxideTouch",
+    "name": "SmartxideTouch",
+    "desc": "DEKA SmartXide Touch C60 / Fractional CO2 | 10,600nm. Fractionated ablative/resurfacing laser | Combined CO2 with RF in DOT/RF mode for total rejuvenation"
+  },
+  {
+    "id": "Toro",
+    "name": "Toro",
+    "desc": "DEKA TORO | Q-Switched | 1064nm & 532nm pigment & tattoo removal | for enhanced pigment/tattoo breakdown"
+  },
+  {
+    "id": "OndaPro",
+    "name": "OndaPro",
+    "desc": "DEKA ONDA Pro | Patented Coolwaves® microwave energy ~2.45GHz | non-laser microwave frequency targeting fat cells & collagen | body contouring & tightening"
+  },
+  {
+    "id": "RedTouch",
+    "name": "RedTouch",
+    "desc": "DEKA RedTouch | 675nm unique wavelength | specifically targeting collagen stimulation | non-ablative rejuvenation"
+  },
+  {
+    "id": "Excilite",
+    "name": "Excilite",
+    "desc": "DEKA Excilite / Excilite u | 308nm MEL/Excimer UVB excimer emission | vitiligo, psoriasis, alopecia & atopic dermatitis therapies"
+  },
+  {
+    "id": "ThermaDas",
+    "name": "ThermaDas",
+    "desc": "RF technology | skin tightening & collagen stimulation (non-laser)"
+  },
+  {
+    "id": "Multifrax",
+    "name": "Multifrax",
+    "desc": "Dual fractional laser 1550nm Erbium Glass + 1927nm Thulium | Portable | skin rejuvenation & pigmentation treatment"
+  },
+  {
+    "id": "4Plus",
+    "name": "4Plus",
+    "desc": "Dynamic Quadrupole RF (DQRF) | skin tightening & body contouring (non-laser)"
+  },
+  {
+    "id": "Mesojet",
+    "name": "Mesojet",
+    "desc": "Hydroporation | transdermal delivery & skin revitalization (non-laser)"
+  },
+  {
+    "id": "MShape",
+    "name": "MShape",
+    "desc": "Multi-energy system: Magnetic + Bio-energy + Light | muscle toning & body shaping (non-laser)"
+  },
+  {
+    "id": "Again",
+    "name": "Again",
+    "desc": "DEKA Again & Zimmer Cryo 6 Alexandrite & ND:Yag Laser & Air cooling"
+  },
+  {
+    "id": "QS4",
+    "name": "QS4",
+    "desc": "DEKA – SYNCHRO QS4 Nd:YAG  Q Switched Laser"
+  },
+  {
+    "id": "Studio",
+    "name": "Studio",
+    "desc": "DEKA - Studio Nd:YAG  Q Switched Laser"
+  },
+  {
+    "id": "SynchroVasQ",
+    "name": "Synchro VasQ",
+    "desc": "DEKA Synchro VasQ The Dye Laser Evolution with the New Right Light Technology The Gold Standard for Vascular Application"
+  }
+]
