@@ -16,5 +16,14 @@
     "hash": "ef7479696f694ff7d07f61a161f5ed4909b03b970883070de19fd59c47b1f074",
     "role": "user",
     "active": true
+  },
+  "yaser": {
+    "display": "yaser",
+    "salt": "50b3cdf21ea3a70d3151b63a3e53bb29",
+    "algo": "pbkdf2",
+    "iter": 200000,
+    "hash": "828bf19ef4e6f7cc7f7096476966b59b2a889e834ad9c52bced3b137a8c83c90",
+    "role": "user",
+    "active": true
   }
 }
