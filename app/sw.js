@@ -1,9 +1,11 @@
 /* Offline support: the app itself is cached; forms and lists are cached by data.js */
-const SHELL = "eagle-shell-v3";
+const SHELL = "eagle-shell-v4";
 const FILES = ["./", "index.html", "css/app.css", "manifest.json", "icons/icon-192.png",
   "js/app.js", "js/engine.js", "js/data.js", "js/backend.js", "js/config.js",
   "lib/jszip.min.js", "lib/qrcode.js", "lib/xlsx.mini.min.js",
-  "lib/firebase-app.js", "lib/firebase-auth.js", "lib/firebase-firestore.js"];
+  "lib/firebase-app.js", "lib/firebase-auth.js", "lib/firebase-firestore.js",
+  "lib/pdf-lib.min.js", "lib/fontkit.umd.min.js", "js/pdfdraw.js", "js/arabic.js",
+  "fonts/NotoNaskhArabic-400.ttf", "fonts/NotoNaskhArabic-700.ttf"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(SHELL).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith("eagle-shell") && k !== SHELL).map(k => caches.delete(k)))));

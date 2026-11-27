@@ -1,8 +1,9 @@
 /* Eagle Generator – web app (phones first) */
-import { getBackend } from "./backend.js?v=3";
-import * as D from "./data.js?v=3";
-import * as E from "./engine.js?v=3";
-import { APP_VERSION } from "./config.js?v=3";
+import { getBackend } from "./backend.js?v=4";
+import * as D from "./data.js?v=4";
+import * as E from "./engine.js?v=4";
+import { APP_VERSION } from "./config.js?v=4";
+import { drawPdf } from "./pdfdraw.js?v=4";
 
 const $ = s => document.querySelector(s);
 const view = $("#view");
@@ -47,6 +48,14 @@ function download(file) {
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
 const DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+const PDF = "application/pdf";
+const plain = map => Object.fromEntries(Object.entries(map).map(([k, v]) => [k.replace(/[{}]/g, ""), v]));
+const pdfName = n => n.replace(/\.docx$/i, ".pdf");
+async function libsReady() {           // pdf-lib / fontkit are loaded with "defer"
+  for (let i = 0; i < 50 && !(window.PDFLib && window.fontkit); i++) await new Promise(r => setTimeout(r, 100));
+  return !!(window.PDFLib && window.fontkit);
+}
+/* result of every build: { word: File, pdf: File | null } */
 
 /* ── routing ──────────────────────────────────────────────────────────── */
 const screens = {};
@@ -172,11 +181,11 @@ screens.quote = (st = { step: 1, device: null, account: "", city: "", date: toda
       try {
         const f = { kind: "quotation", device: dev.id, deviceLabel: label(dev), account: st.account, city: st.city, date: st.date,
           price: st.price, qty: st.qty, dp: st.dp, installments: st.ins, notes: st.notes, serial };
-        const file = await buildQuotation(f, dev);
+        const res = await buildQuotation(f, dev);
         await B.takeSerials(me.uid, "quotNext", serial, 1);
         prof.quotNext = String(+serial + 1).padStart(serial.length, "0");
-        await B.addRegister({ uid: me.uid, by: prof.name || me.email, empCode: prof.empCode || "", ...f, total, file: file.name });
-        busy(false); go("done", [file], "Quotation created");
+        await B.addRegister({ uid: me.uid, by: prof.name || me.email, empCode: prof.empCode || "", ...f, total, file: res.word.name });
+        busy(false); go("done", [res], "Quotation created");
       } catch (e) { busy(false); toast(e.message, true); }
     };
   }
@@ -185,10 +194,15 @@ screens.quote = (st = { step: 1, device: null, account: "", city: "", date: toda
 async function buildQuotation(f, dev) {
   const zip = await E.openDocx(await D.quotationForm(dev));
   const price = E.parseAmount(f.price), qty = E.parseQty(f.qty), dp = E.parseAmount(f.dp);
-  await E.fill(zip, E.quotationMap({ ...f, empCode: prof.empCode || "", empName: prof.name || "", empPhone: prof.phone || "",
-    installments: f.installments }, price * qty, price, qty, dp));
+  const map = E.quotationMap({ ...f, empCode: prof.empCode || "", empName: prof.name || "", empPhone: prof.phone || "",
+    installments: f.installments }, price * qty, price, qty, dp);
+  await E.fill(zip, map);
   const name = `${E.safeName(f.deviceLabel)}_Quotation_${E.safeName(f.account)}_${f.serial}.docx`;
-  return new File([await E.toBlob(zip)], name, { type: DOCX });
+  const word = new File([await E.toBlob(zip)], name, { type: DOCX });
+  let pdf = null;
+  const pair = await D.quotationPdf(dev);
+  if (pair && await libsReady()) pdf = new File([await drawPdf(pair.bg, pair.layout, plain(map))], pdfName(name), { type: PDF });
+  return { word, pdf };
 }
 
 /* ═════════════════════════ PACKAGE ═════════════════════════ */
@@ -242,12 +256,12 @@ screens.pkg = (st = { step: 1, sel: {}, account: "", city: "", date: today(), dp
       try {
         const f = { kind: "package", items: rows, account: st.account, city: st.city, date: st.date, dp: st.dp,
           installments: st.ins, notes: st.notes, serial };
-        const file = await buildPackage(f);
+        const res = await buildPackage(f);
         await B.takeSerials(me.uid, "quotNext", serial, 1);
         prof.quotNext = String(+serial + 1).padStart(serial.length, "0");
         await B.addRegister({ uid: me.uid, by: prof.name || me.email, empCode: prof.empCode || "", ...f,
-          deviceLabel: rows.map(r => r.label).join(" + "), total: gt, file: file.name });
-        busy(false); go("done", [file], "Package quotation created");
+          deviceLabel: rows.map(r => r.label).join(" + "), total: gt, file: res.word.name });
+        busy(false); go("done", [res], "Package quotation created");
       } catch (e) { busy(false); toast(e.message, true); }
     };
   }
@@ -256,10 +270,19 @@ screens.pkg = (st = { step: 1, sel: {}, account: "", city: "", date: today(), dp
 async function buildPackage(f) {
   const zip = await E.openDocx(await D.packageForm());
   const gt = f.items.reduce((a, r) => a + r.price * r.qty, 0);
-  await E.fill(zip, E.quotationMap({ ...f, empCode: prof.empCode || "", empName: prof.name || "", empPhone: prof.phone || "" },
-    gt, 0, 0, E.parseAmount(f.dp)));
+  const map = E.quotationMap({ ...f, empCode: prof.empCode || "", empName: prof.name || "", empPhone: prof.phone || "" },
+    gt, 0, 0, E.parseAmount(f.dp));
+  await E.fill(zip, map);
   await E.packageRows(zip, f.items, gt);
-  return new File([await E.toBlob(zip)], `Package_Quotation_${E.safeName(f.account)}_${f.serial}.docx`, { type: DOCX });
+  const name = `Package_Quotation_${E.safeName(f.account)}_${f.serial}.docx`;
+  const word = new File([await E.toBlob(zip)], name, { type: DOCX });
+  let pdf = null;
+  const pair = await D.packagePdf();
+  if (pair && pair.layout.slots && f.items.length <= pair.layout.slots.length && await libsReady()) {
+    const rows = f.items.map(r => ({ label: r.label, desc: r.desc, price: E.fmt(r.price), qty: String(r.qty), total: E.fmt(r.price * r.qty) }));
+    pdf = new File([await drawPdf(pair.bg, pair.layout, plain(map), { rows })], pdfName(name), { type: PDF });
+  }
+  return { word, pdf };
 }
 
 /* ═════════════════════════ CERTIFICATES ═════════════════════════ */
@@ -316,6 +339,7 @@ screens.cert = (st = { step: 1, framed: true, device: null, from: today(), to: t
         await B.takeSerials(me.uid, "certNext", serial, names.length);   // reserve all numbers first
         prof.certNext = String(+serial + names.length).padStart(serial.length, "0");
         const form = await D.certificateForm(dev, st.framed);
+        const pair = await D.certificatePdf(dev, st.framed);
         const stampBytes = st.stamp ? await D.stampImage() : null;
         const files = [], failed = [];
         for (let i = 0; i < names.length; i++) {
@@ -323,8 +347,8 @@ screens.cert = (st = { step: 1, framed: true, device: null, from: today(), to: t
           const no = String(+serial + i).padStart(serial.length, "0");
           const certNo = prof.empCode ? `${prof.empCode}-${no}` : no;
           try {
-            const file = await buildCertificate({ form, stampBytes, qr: st.qr, name: names[i], certNo, dev, from: st.from, to: st.to, city: st.city });
-            files.push(file);
+            const res = await buildCertificate({ form, pair, stampBytes, qr: st.qr, name: names[i], certNo, dev, from: st.from, to: st.to, city: st.city });
+            files.push(res); const file = res.word;
             await B.addRegister({ uid: me.uid, by: prof.name || me.email, empCode: prof.empCode || "", kind: "certificate",
               serial: certNo, device: dev.id, deviceLabel: label(dev), framed: st.framed, trainee: names[i],
               from: st.from, to: st.to, city: st.city, stamp: st.stamp, qr: st.qr, file: file.name });
@@ -338,33 +362,56 @@ screens.cert = (st = { step: 1, framed: true, device: null, from: today(), to: t
   }
 };
 
-async function buildCertificate({ form, stampBytes, qr, name, certNo, dev, from, to, city }) {
+async function buildCertificate({ form, pair, stampBytes, qr, name, certNo, dev, from, to, city }) {
   const zip = await E.openDocx(form.slice(0));
-  await E.fill(zip, { "{{NAME}}": name, "{{DEVICE}}": label(dev), "{{DATE}}": `from ${E.shortDate(from)} to ${E.shortDate(to)}`,
-    "{{CITY}}": city, "{{SERIAL}}": certNo });
+  const map = { "{{NAME}}": name, "{{DEVICE}}": label(dev), "{{DATE}}": `from ${E.shortDate(from)} to ${E.shortDate(to)}`,
+    "{{CITY}}": city, "{{SERIAL}}": certNo };
+  await E.fill(zip, map);
   if (stampBytes) await E.stamp(zip, stampBytes);
-  if (qr) await E.addFooterQR(zip, await E.qrPng(`AME-KSA Training Certificate\nNo: ${certNo}\nName: ${name}\nDevice: ${label(dev)}\nFrom ${E.shortDate(from)} to ${E.shortDate(to)}\nCity: ${city}`));
-  return new File([await E.toBlob(zip)], `${E.safeName(label(dev))}_Certificate_${E.safeName(name)}.docx`, { type: DOCX });
+  const qrBytes = qr ? await E.qrPng(`AME-KSA Training Certificate\nNo: ${certNo}\nName: ${name}\nDevice: ${label(dev)}\nFrom ${E.shortDate(from)} to ${E.shortDate(to)}\nCity: ${city}`) : null;
+  if (qrBytes) await E.addFooterQR(zip, qrBytes);
+  const fname = `${E.safeName(label(dev))}_Certificate_${E.safeName(name)}.docx`;
+  const word = new File([await E.toBlob(zip)], fname, { type: DOCX });
+  let pdf = null;
+  if (pair && await libsReady()) {
+    pdf = new File([await drawPdf(pair.bg.slice(0), { ...pair.layout, kind: "certificate" }, plain(map),
+      { stamp: stampBytes, qr: qrBytes })], pdfName(fname), { type: PDF });
+  }
+  return { word, pdf };
 }
 
 /* ═════════════════════════ DONE / SHARE ═════════════════════════ */
-screens.done = (files = lastFiles, title = "Done") => {
-  lastFiles = files;
+screens.done = (results = lastFiles, title = "Done") => {
+  lastFiles = results;
   header(title, () => go("home"));
+  const pdfs = results.map(r => r.pdf).filter(Boolean), words = results.map(r => r.word);
+  const list = (files, kind) => files.map((f, i) => `<div class="file"><span>${kind === "pdf" ? "📕" : "📄"}</span><span style="flex:1">${esc(f.name)}</span>
+      <button class="btn sec btn-inline" data-k="${kind}" data-i="${i}">Open</button></div>`).join("");
   view.innerHTML = `<div class="done"><div class="big">✅</div><h2 style="text-align:center">${esc(title)}</h2>
-    <p class="small muted">Share the Word file on WhatsApp or e-mail, or save it to your phone.</p></div>
-    ${files.map((f, i) => `<div class="file"><span>📄</span><span style="flex:1">${esc(f.name)}</span><button class="btn sec btn-inline" data-i="${i}">Save</button></div>`).join("")}
-    ${files.length > 1 ? `<button class="btn sec" id="zip" style="width:100%;margin-top:6px">Download all as one ZIP</button>` : ""}
-    <div class="note" style="margin-top:14px">To send as <b>PDF</b>: open the file in the <b>Word</b> app on your phone → Share / Export → <b>PDF</b>. (Converting in the browser would move the pictures.)</div>`;
-  view.querySelectorAll("[data-i]").forEach(b => (b.onclick = () => download(files[+b.dataset.i])));
+    <p class="small muted">${pdfs.length ? "Ready to send – the PDF looks the same on every phone and prints directly." : "Share the Word file on WhatsApp or e-mail."}</p></div>
+    ${pdfs.length ? `<h2>PDF</h2>${list(pdfs, "pdf")}` : ""}
+    ${pdfs.length && pdfs.length < words.length ? `<div class="note">${words.length - pdfs.length} file(s) have no PDF form yet – use the Word file.</div>` : ""}
+    <details style="margin-top:14px"${pdfs.length ? "" : " open"}><summary class="small muted" style="cursor:pointer;padding:6px 2px">Word files (to edit)</summary>
+      ${list(words, "word")}
+      <button class="btn sec" id="shareword" style="width:100%;margin-top:6px">Share Word file${words.length > 1 ? "s" : ""}</button></details>
+    ${results.length > 1 ? `<button class="btn sec" id="zip" style="width:100%;margin-top:10px">Download all as one ZIP</button>` : ""}`;
+  view.querySelectorAll("[data-k]").forEach(b => (b.onclick = () => open((b.dataset.k === "pdf" ? pdfs : words)[+b.dataset.i])));
+  $("#shareword").onclick = () => share(words, title);
   $("#zip") && ($("#zip").onclick = async () => {
-    const z = new window.JSZip(); files.forEach(f => z.file(f.name, f));
-    download(new File([await z.generateAsync({ type: "blob" })], `Certificates_${today()}.zip`, { type: "application/zip" }));
+    const z = new window.JSZip(); (pdfs.length ? pdfs : words).forEach(f => z.file(f.name, f));
+    download(new File([await z.generateAsync({ type: "blob" })], `Eagle_${today()}.zip`, { type: "application/zip" }));
   });
-  bar(`<button class="btn sec" id="home">Home</button><button class="btn green" id="share">Share${files.length > 1 ? ` (${files.length})` : ""}</button>`);
+  const main = pdfs.length ? pdfs : words;
+  bar(`<button class="btn sec" id="home">Home</button><button class="btn green" id="share">Share ${pdfs.length ? "PDF" : "Word"}${main.length > 1 ? ` (${main.length})` : ""}</button>`);
   $("#home").onclick = () => go("home");
-  $("#share").onclick = () => share(files, title);
+  $("#share").onclick = () => share(main, title);
 };
+function open(file) {                       // show the file (PDF opens in the phone's viewer)
+  const url = URL.createObjectURL(file);
+  const w = window.open(url, "_blank");
+  if (!w) download(file);
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
 
 /* ═════════════════════════ HISTORY ═════════════════════════ */
 screens.history = async () => {
@@ -407,7 +454,7 @@ async function rebuild(r) {
   if (r.kind === "package") return buildPackage(r);
   const list = r.framed ? L.framed : L.unframed;
   const dev = list.find(e => e.id === r.device) || { id: r.device, name: r.deviceLabel };
-  return buildCertificate({ form: await D.certificateForm(dev, r.framed), stampBytes: r.stamp ? await D.stampImage() : null,
+  return buildCertificate({ form: await D.certificateForm(dev, r.framed), pair: await D.certificatePdf(dev, r.framed), stampBytes: r.stamp ? await D.stampImage() : null,
     qr: r.qr, name: r.trainee, certNo: r.serial, dev, from: r.from, to: r.to, city: r.city });
 }
 

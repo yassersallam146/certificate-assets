@@ -1,5 +1,5 @@
 /* Device lists, forms and logos from GitHub – kept on the phone for offline use. */
-import { GITHUB_RAW } from "./config.js?v=3";
+import { GITHUB_RAW } from "./config.js?v=4";
 
 const CACHE = "eagle-data-v1";
 const LEGACY_CERT = ["AgainPro_template.docx", "Again_template.docx", "Qs4_template.docx", "Replay_Template.docx",
@@ -43,3 +43,15 @@ export const certificateForm = (e, framed) => cached(`templates/${framed ? "fram
 export const packageForm = () => cached("templates/quotation/package_quotation_template.docx", null, "bin");
 export const stampImage = () => cached("logos/stamp.png", null, "bin");
 export const logoUrl = GITHUB_RAW + "logos/logo.png";
+
+/* PDF background + field map (made from the Word form) – null if not available */
+async function pdfPair(path, version) {
+  try {
+    const [layout, bg] = await Promise.all([cached(path + ".json", version, "json"), cached(path + ".pdf", version, "bin")]);
+    return { layout, bg };
+  } catch { return null; }
+}
+const stem = f => f.replace(/\.docx$/i, "");
+export const quotationPdf = e => pdfPair(`templates/pdf/quotation/${stem(e.template || e.id + "_quotation.docx")}`, e.v);
+export const certificatePdf = (e, framed) => pdfPair(`templates/pdf/${framed ? "framed" : "unframed"}/${stem(certTemplateName(e))}`, e.v);
+export const packagePdf = () => pdfPair("templates/pdf/quotation/package_quotation_template", null);
