@@ -158,14 +158,14 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "suffixStyle": {
 "size": 12.0,
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold"
 },
 "end": 436.76
@@ -188,7 +188,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 322.63
 },
@@ -210,7 +210,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "suffixStyle": {
 "size": 12.0,
@@ -240,7 +240,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "suffixStyle": {
 "size": 12.0,
@@ -270,14 +270,14 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "suffixStyle": {
 "size": 12.0,
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "end": 493.82
@@ -351,7 +351,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 163.41
 },
@@ -373,7 +373,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "end": 268.71
 },
@@ -395,7 +395,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "QTY": {
@@ -416,7 +416,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "TOTAL": {
@@ -437,7 +437,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -447,7 +447,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -571,7 +571,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -694,7 +694,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -817,7 +817,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -844,7 +844,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 167.84
 },
@@ -866,7 +866,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "end": 273.72
 },
@@ -888,7 +888,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "QTY": {
@@ -909,7 +909,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "TOTAL": {
@@ -930,7 +930,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -940,7 +940,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -967,7 +967,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 153.98
 },
@@ -989,7 +989,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "end": 259.24
 },
@@ -1011,7 +1011,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "QTY": {
@@ -1032,7 +1032,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "TOTAL": {
@@ -1053,7 +1053,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1063,7 +1063,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1090,7 +1090,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 160.64
 },
@@ -1112,7 +1112,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "end": 265.33
 },
@@ -1134,7 +1134,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "QTY": {
@@ -1155,7 +1155,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "TOTAL": {
@@ -1176,7 +1176,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1186,7 +1186,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1213,7 +1213,7 @@
 "color": "#000000",
 "bold": true,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans-Bold",
 "end": 145.66
 },
@@ -1235,7 +1235,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans",
 "end": 252.6
 },
@@ -1257,7 +1257,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "QTY": {
@@ -1278,7 +1278,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 },
 "TOTAL": {
@@ -1299,7 +1299,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1309,7 +1309,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1432,7 +1432,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 },
@@ -1555,7 +1555,7 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "LiberationSans"
 }
 }
