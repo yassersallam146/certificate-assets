@@ -81,28 +81,6 @@
 "end": 283.62
 },
 {
-"key": "QR",
-"page": 0,
-"x0": 417.2,
-"x1": 419.67,
-"y0": 447.4,
-"y1": 448.62,
-"base": 448.35,
-"align": "left",
-"cx": 417.2,
-"maxX": 658.16,
-"minX": 38.5,
-"inCell": false,
-"suffix": "",
-"size": 1.0,
-"color": "#ffffff",
-"bold": false,
-"italic": false,
-"serif": false,
-"font": "Carlito-Regular",
-"end": 419.67
-},
-{
 "key": "STAMP_HERE",
 "page": 0,
 "x0": 513.65,
@@ -151,5 +129,6 @@
 299.5,
 57.6,
 218.9
-]
+],
+"qrSlot": true
 }

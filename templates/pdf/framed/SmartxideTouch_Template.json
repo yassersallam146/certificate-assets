@@ -103,28 +103,6 @@
 "end": 313.07
 },
 {
-"key": "QR",
-"page": 0,
-"x0": 446.65,
-"x1": 449.12,
-"y0": 453.0,
-"y1": 454.22,
-"base": 453.95,
-"align": "left",
-"cx": 446.65,
-"maxX": 734.31,
-"minX": 38.5,
-"inCell": false,
-"suffix": "",
-"size": 1.0,
-"color": "#ffffff",
-"bold": false,
-"italic": false,
-"serif": false,
-"font": "Carlito-Regular",
-"end": 449.12
-},
-{
 "key": "STAMP_HERE",
 "page": 0,
 "x0": 543.1,
@@ -149,13 +127,13 @@
 {
 "key": "SERIAL",
 "page": 0,
-"x0": 679.5,
-"x1": 717.11,
+"x0": 678.65,
+"x1": 716.26,
 "y0": 512.13,
 "y1": 523.11,
 "base": 520.7,
 "align": "left",
-"cx": 679.5,
+"cx": 678.65,
 "maxX": 734.31,
 "minX": 38.5,
 "inCell": false,
@@ -166,12 +144,13 @@
 "italic": true,
 "serif": false,
 "font": "Carlito-BoldItalic",
-"end": 717.11
+"end": 716.26
 }
 ],
 "sigCols": [
 299.5,
 57.6,
 218.9
-]
+],
+"qrSlot": true
 }

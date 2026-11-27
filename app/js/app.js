@@ -1,9 +1,9 @@
 /* Eagle Generator – web app (phones first) */
-import { getBackend } from "./backend.js?v=8";
-import * as D from "./data.js?v=8";
-import * as E from "./engine.js?v=8";
-import { APP_VERSION } from "./config.js?v=8";
-import { drawPdf } from "./pdfdraw.js?v=8";
+import { getBackend } from "./backend.js?v=9";
+import * as D from "./data.js?v=9";
+import * as E from "./engine.js?v=9";
+import { APP_VERSION } from "./config.js?v=9";
+import { drawPdf } from "./pdfdraw.js?v=9";
 
 const $ = s => document.querySelector(s);
 const view = $("#view");

@@ -1,5 +1,5 @@
 /* Device lists, forms and logos from GitHub – kept on the phone for offline use. */
-import { GITHUB_RAW } from "./config.js?v=8";
+import { GITHUB_RAW } from "./config.js?v=9";
 
 const CACHE = "eagle-data-v1";
 const LEGACY_CERT = ["AgainPro_template.docx", "Again_template.docx", "Qs4_template.docx", "Replay_Template.docx",

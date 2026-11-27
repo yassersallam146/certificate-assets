@@ -191,6 +191,8 @@ export async function stamp(zip, stampBytes, placeholder = "{{STAMP_HERE}}", wid
 
 /* QR code: in the {{QR}} place of the form (middle column), or – older forms – in the footer */
 export async function addQR(zip, pngBytes) {
+  // new forms: a floating QR slot beside the certificate number – just swap the picture
+  if (zip.file("word/media/eagle_qr.png")) { zip.file("word/media/eagle_qr.png", pngBytes); return true; }
   const n = await stamp(zip, pngBytes, "{{QR}}", 0.6);
   return n > 0 ? true : addFooterQR(zip, pngBytes);
 }

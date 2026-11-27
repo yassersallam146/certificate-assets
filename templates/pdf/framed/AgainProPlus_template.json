@@ -16,7 +16,7 @@
 "base": 268.5,
 "align": "left",
 "cx": 347.35,
-"maxX": 714.61,
+"maxX": 713.76,
 "minX": 38.5,
 "inCell": false,
 "suffix": "",
@@ -38,7 +38,7 @@
 "base": 507.65,
 "align": "left",
 "cx": 225.5,
-"maxX": 714.61,
+"maxX": 713.76,
 "minX": 38.5,
 "inCell": false,
 "suffix": " –",
@@ -68,7 +68,7 @@
 "base": 507.65,
 "align": "left",
 "cx": 276.9,
-"maxX": 714.61,
+"maxX": 713.76,
 "minX": 38.5,
 "inCell": false,
 "suffix": "",
@@ -81,28 +81,6 @@
 "end": 313.07
 },
 {
-"key": "QR",
-"page": 0,
-"x0": 446.65,
-"x1": 449.12,
-"y0": 466.45,
-"y1": 467.67,
-"base": 467.4,
-"align": "left",
-"cx": 446.65,
-"maxX": 714.61,
-"minX": 38.5,
-"inCell": false,
-"suffix": "",
-"size": 1.0,
-"color": "#ffffff",
-"bold": false,
-"italic": false,
-"serif": false,
-"font": "Carlito-Regular",
-"end": 449.12
-},
-{
 "key": "STAMP_HERE",
 "page": 0,
 "x0": 543.1,
@@ -112,7 +90,7 @@
 "base": 479.3,
 "align": "right",
 "cx": 549.81,
-"maxX": 714.61,
+"maxX": 713.76,
 "minX": 38.5,
 "inCell": false,
 "suffix": "",
@@ -127,14 +105,14 @@
 {
 "key": "SERIAL",
 "page": 0,
-"x0": 679.5,
-"x1": 717.11,
+"x0": 678.65,
+"x1": 716.26,
 "y0": 522.63,
 "y1": 533.61,
 "base": 531.2,
 "align": "left",
-"cx": 679.5,
-"maxX": 714.61,
+"cx": 678.65,
+"maxX": 713.76,
 "minX": 38.5,
 "inCell": false,
 "suffix": "",
@@ -144,12 +122,13 @@
 "italic": true,
 "serif": false,
 "font": "Carlito-BoldItalic",
-"end": 717.11
+"end": 716.26
 }
 ],
 "sigCols": [
 299.5,
 57.6,
 218.9
-]
+],
+"qrSlot": true
 }

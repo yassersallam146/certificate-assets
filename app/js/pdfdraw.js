@@ -4,7 +4,7 @@
  * + the values (client, prices, names …), stamp picture, QR code.
  * Needs window.PDFLib and window.fontkit.
  */
-import { joinArabic } from "./arabic.js?v=8";
+import { joinArabic } from "./arabic.js?v=9";
 const AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
 const AR_RUN = /([؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:[ ،؛؟]+[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+)*)/;
 let fontBytes = {};
@@ -132,7 +132,7 @@ export async function drawPdf(bg, layout, values, extra = {}) {
   // new certificate bottom (Held From | QR | stamp + names): find the 3 column centres
   const qrF = layout.fields.find(x => x.key === "QR"), stF = layout.fields.find(x => x.key === "STAMP_HERE");
   const dateF = layout.fields.find(x => x.key === "DATE");
-  const cols = qrF && stF && layout.sigCols ? (() => {
+  const cols = stF && layout.sigCols ? (() => {
     // the stamp column never wraps, so its centre is exact; the others follow from the column widths
     const [w1, w2, w3] = layout.sigCols;
     // the "{{DATE}} – {{CITY}}" line is centred in the first column: its middle gives the exact start
@@ -140,7 +140,7 @@ export async function drawPdf(bg, layout, values, extra = {}) {
     const start = dateF && cityF ? (dateF.x0 + (cityF.x1 ?? cityF.end)) / 2 - w1 / 2
                                  : (stF.x0 + stF.x1 + 61.2) / 2 - w1 - w2 - w3 / 2;
     const right = start + w1 + w2 + w3 / 2;
-    return { left: start + w1 / 2, mid: start + w1 + w2 / 2, right, w: w1, base: dateF ? dateF.base : qrF.base };
+    return { left: start + w1 / 2, mid: start + w1 + w2 / 2, right, w: w1, base: dateF ? dateF.base : stF.base };
   })() : null;
   for (const f of order) {
     const page = pages[f.page]; const H = page.getHeight();
@@ -168,7 +168,10 @@ export async function drawPdf(bg, layout, values, extra = {}) {
     }
     const end = await drawField(page, fonts, f, values[f.key], H, chained ? prevEnd : undefined);
     prev = f; prevEnd = end;
-    if (f.key === "SERIAL" && qrImg && layout.kind === "certificate" && !layout.fields.some(x => x.key === "QR")) {
+    if (f.key === "SERIAL" && qrImg && layout.qrSlot) {          // QR beside the certificate number
+      const s = 36;                                               // same place as in the Word file
+      page.drawImage(qrImg, { x: f.x1 + 6, y: H - (f.y0 - 21) - s, width: s, height: s });
+    } else if (f.key === "SERIAL" && qrImg && layout.kind === "certificate" && !layout.fields.some(x => x.key === "QR")) {
       const s = 44.6;
       page.drawImage(qrImg, { x: f.x0 - 78 - s, y: H - f.base - 6, width: s, height: s });
     }
