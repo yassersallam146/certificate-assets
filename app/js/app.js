@@ -1,9 +1,9 @@
 /* Eagle Generator – web app (phones first) */
-import { getBackend } from "./backend.js?v=4";
-import * as D from "./data.js?v=4";
-import * as E from "./engine.js?v=4";
-import { APP_VERSION } from "./config.js?v=4";
-import { drawPdf } from "./pdfdraw.js?v=4";
+import { getBackend } from "./backend.js?v=5";
+import * as D from "./data.js?v=5";
+import * as E from "./engine.js?v=5";
+import { APP_VERSION } from "./config.js?v=5";
+import { drawPdf } from "./pdfdraw.js?v=5";
 
 const $ = s => document.querySelector(s);
 const view = $("#view");
@@ -364,12 +364,12 @@ screens.cert = (st = { step: 1, framed: true, device: null, from: today(), to: t
 
 async function buildCertificate({ form, pair, stampBytes, qr, name, certNo, dev, from, to, city }) {
   const zip = await E.openDocx(form.slice(0));
-  const map = { "{{NAME}}": name, "{{DEVICE}}": label(dev), "{{DATE}}": `from ${E.shortDate(from)} to ${E.shortDate(to)}`,
+  const map = { "{{NAME}}": name, "{{DEVICE}}": label(dev), "{{DATE}}": `${E.shortDate(from)} to ${E.shortDate(to)}`,
     "{{CITY}}": city, "{{SERIAL}}": certNo };
-  await E.fill(zip, map);
+  await E.fill(zip, { ...map, ...(qr ? {} : { "{{QR}}": "" }), ...(stampBytes ? {} : { "{{STAMP_HERE}}": "" }) });
   if (stampBytes) await E.stamp(zip, stampBytes);
-  const qrBytes = qr ? await E.qrPng(`AME-KSA Training Certificate\nNo: ${certNo}\nName: ${name}\nDevice: ${label(dev)}\nFrom ${E.shortDate(from)} to ${E.shortDate(to)}\nCity: ${city}`) : null;
-  if (qrBytes) await E.addFooterQR(zip, qrBytes);
+  const qrBytes = qr ? await E.qrPng(`AME-KSA Training Certificate\nNo: ${certNo}\nName: ${name}\nDevice: ${label(dev)}\n${E.shortDate(from)} to ${E.shortDate(to)}\nCity: ${city}`) : null;
+  if (qrBytes) await E.addQR(zip, qrBytes);
   const fname = `${E.safeName(label(dev))}_Certificate_${E.safeName(name)}.docx`;
   const word = new File([await E.toBlob(zip)], fname, { type: DOCX });
   let pdf = null;

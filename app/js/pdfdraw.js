@@ -4,7 +4,7 @@
  * + the values (client, prices, names …), stamp picture, QR code.
  * Needs window.PDFLib and window.fontkit.
  */
-import { joinArabic } from "./arabic.js?v=4";
+import { joinArabic } from "./arabic.js?v=5";
 const AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
 const AR_RUN = /([؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:[ ،؛؟]+[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+)*)/;
 let fontBytes = {};
@@ -128,21 +128,40 @@ export async function drawPdf(bg, layout, values, extra = {}) {
   // fields that follow each other on one line ("{{DATE}} – {{CITY}}") flow one after another
   const order = [...layout.fields].sort((a, b) => a.page - b.page || a.base - b.base || a.x0 - b.x0);
   let prev = null, prevEnd = null;
+  // new certificate bottom (Held From | QR | stamp + names): find the 3 column centres
+  const qrF = layout.fields.find(x => x.key === "QR"), stF = layout.fields.find(x => x.key === "STAMP_HERE");
+  const cols = qrF && stF ? (() => {
+    // the background keeps an invisible picture of the same size right after each placeholder
+    const mid = (qrF.x0 + qrF.x1 + 43.2) / 2, right = (stF.x0 + stF.x1 + 61.2) / 2;
+    return { left: 2 * mid - right, mid, right, w: (right - mid) / 0.3 * 0.4 };
+  })() : null;
   for (const f of order) {
     const page = pages[f.page]; const H = page.getHeight();
     const chained = prev && prev.page === f.page && Math.abs(prev.base - f.base) < 1.5 && prev.end !== undefined
       && f.x0 - prev.end < 8 && f.x0 >= prev.x0 && prevEnd !== null && f.align === "left" && prev.align === "left";
-    if (f.key === "STAMP_HERE") {
-      if (stampImg) {
-        const w = 93.6, h = w * stampImg.height / stampImg.width;
-        page.drawImage(stampImg, { x: f.x0, y: H - f.y0 - h * 0.78, width: w, height: h });
-        stampImg._drawn = (stampImg._drawn || 0) + 1;
+    if (f.key === "STAMP_HERE" || f.key === "QR") {
+      const img = f.key === "QR" ? qrImg : stampImg;
+      if (img) {
+        const w = f.key === "QR" ? 43.2 : 61.2, h = w * img.height / img.width;
+        if (cols) {                // new forms: centred in its column, standing on its line
+          const cx = f.key === "QR" ? cols.mid : cols.right;
+          page.drawImage(img, { x: cx - w / 2, y: H - f.base, width: w, height: h });
+        } else {                   // older forms (floating text box)
+          page.drawImage(img, { x: f.x0, y: H - f.y0 - h * 0.78, width: w, height: h });
+        }
       }
+      continue;
+    }
+    if (cols && f.key === "CITY") continue;          // drawn together with the date
+    if (cols && f.key === "DATE") {                  // "date – city" centred under "Held From"
+      const city = values.CITY ? " " + values.CITY : "";
+      await drawField(page, fonts, { ...f, align: "center", cx: cols.left, inCell: true,
+        minX: cols.left - cols.w / 2, maxX: cols.left + cols.w / 2, suffix: (f.suffix || " –") + city }, values.DATE, H);
       continue;
     }
     const end = await drawField(page, fonts, f, values[f.key], H, chained ? prevEnd : undefined);
     prev = f; prevEnd = end;
-    if (f.key === "SERIAL" && qrImg && layout.kind === "certificate") {
+    if (f.key === "SERIAL" && qrImg && layout.kind === "certificate" && !layout.fields.some(x => x.key === "QR")) {
       const s = 44.6;
       page.drawImage(qrImg, { x: f.x0 - 78 - s, y: H - f.base - 6, width: s, height: s });
     }

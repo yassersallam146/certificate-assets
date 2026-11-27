@@ -166,19 +166,19 @@ async function imageSize(bytes) {
 }
 
 /* {{STAMP_HERE}} → stamp picture (1.3 inch wide), like "Stamp Word Files" */
-export async function stamp(zip, stampBytes) {
+export async function stamp(zip, stampBytes, placeholder = "{{STAMP_HERE}}", widthInch = 0.85) {
   const { w, h } = await imageSize(stampBytes);
-  const cx = Math.round(1.3 * 914400), cy = Math.round(cx * h / w);
+  const cx = Math.round(widthInch * 914400), cy = Math.round(cx * h / w);
   let count = 0;
   for (const name of parts(zip)) {
     const doc = parse(await zip.file(name).async("string"));
     const paras = byTag(doc, "p").filter(p => byTag(p, "t").filter(t => closestP(t) === p)
-      .map(t => t.textContent).join("").includes("{{STAMP_HERE}}"));
+      .map(t => t.textContent).join("").includes(placeholder));
     if (!paras.length) continue;
     const rId = await addImage(zip, name, stampBytes, "png");
     for (const p of paras) {
       const ts = byTag(p, "t").filter(t => closestP(t) === p);
-      const full = ts.map(t => t.textContent).join("").replace("{{STAMP_HERE}}", "");
+      const full = ts.map(t => t.textContent).join("").replace(placeholder, "");
       ts.forEach((t, i) => (t.textContent = i ? "" : full));
       const run = parse(drawingRunXml(rId, cx, cy, 9000 + count)).documentElement;
       p.appendChild(doc.importNode(run, true));
@@ -189,7 +189,11 @@ export async function stamp(zip, stampBytes) {
   return count;
 }
 
-/* QR code at the start of the footer line ("Certificate No: …") */
+/* QR code: in the {{QR}} place of the form (middle column), or – older forms – in the footer */
+export async function addQR(zip, pngBytes) {
+  const n = await stamp(zip, pngBytes, "{{QR}}", 0.6);
+  return n > 0 ? true : addFooterQR(zip, pngBytes);
+}
 export async function addFooterQR(zip, pngBytes) {
   const footers = Object.keys(zip.files).filter(n => /^word\/footer\d*\.xml$/.test(n));
   for (const name of footers) {
