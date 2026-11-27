@@ -1,9 +1,9 @@
 /* Eagle Generator – web app (phones first) */
-import { getBackend } from "./backend.js?v=6";
-import * as D from "./data.js?v=6";
-import * as E from "./engine.js?v=6";
-import { APP_VERSION } from "./config.js?v=6";
-import { drawPdf } from "./pdfdraw.js?v=6";
+import { getBackend } from "./backend.js?v=7";
+import * as D from "./data.js?v=7";
+import * as E from "./engine.js?v=7";
+import { APP_VERSION } from "./config.js?v=7";
+import { drawPdf } from "./pdfdraw.js?v=7";
 
 const $ = s => document.querySelector(s);
 const view = $("#view");
@@ -99,12 +99,11 @@ screens.home = () => {
     <div class="tiles" style="margin-top:12px">
       <button class="tile t1" data-go="quote"><span class="ico">📄</span><b>Quotation</b><span>One device</span></button>
       <button class="tile t2" data-go="pkg"><span class="ico">📦</span><b>Package</b><span>Several devices</span></button>
-      <button class="tile t3" data-go="cert"><span class="ico">🎓</span><b>Certificates</b><span>Training</span></button>
-      <button class="tile t4" data-go="history"><span class="ico">🕘</span><b>History</b><span>${admin ? "All employees" : "My documents"}</span></button>
+      <button class="tile t3${admin ? "" : " wide"}" data-go="cert"><span class="ico">🎓</span><b>Certificates</b><span>Training</span></button>
+      ${admin ? `<button class="tile t4" data-go="history"><span class="ico">🕘</span><b>History</b><span>All employees</span></button>` : ""}
     </div>
     ${admin ? `<h2>Admin</h2>
-      <button class="list-btn" data-go="users"><span class="ico">👥</span><span><b>Users</b><small>Add employees, block, reset passwords</small></span></button>` : ""}
-    <p class="small muted center" style="padding:18px 0">Forms are loaded from your GitHub – new devices appear automatically.</p>`;
+      <button class="list-btn" data-go="users"><span class="ico">👥</span><span><b>Users</b><small>Add employees, block, reset passwords</small></span></button>` : ""}`;
   view.querySelectorAll("[data-go]").forEach(b => (b.onclick = () => go(b.dataset.go)));
   $("#fix") && ($("#fix").onclick = e => { e.preventDefault(); go("profile"); });
 };
@@ -415,6 +414,7 @@ function open(file) {                       // show the file (PDF opens in the p
 
 /* ═════════════════════════ HISTORY ═════════════════════════ */
 screens.history = async () => {
+  if (prof.role !== "admin") return go("home");        // history is for the admin only
   header(prof.role === "admin" ? "History – all" : "My history", () => go("home"));
   view.innerHTML = `<div class="center muted">Loading…</div>`;
   let rows;

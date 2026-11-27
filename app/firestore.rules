@@ -25,7 +25,7 @@ service cloud.firestore {
     // Register of quotations and certificates.
     match /register/{id} {
       allow create: if active() && request.resource.data.uid == request.auth.uid;
-      allow read:   if isAdmin() || (active() && resource.data.uid == request.auth.uid);
+      allow read:   if isAdmin();                 // history: admin only
       allow update, delete: if isAdmin();
     }
 
