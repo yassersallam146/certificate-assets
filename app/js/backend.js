@@ -5,7 +5,7 @@
  *   users/{uid}     { name, email, role: "admin"|"user", active, empCode, phone, quotNext, certNext }
  *   register/{id}   { uid, by, kind: "quotation"|"package"|"certificate", serial, createdAt, ...fields }
  */
-import { FIREBASE, OWNER_EMAIL } from "./config.js";
+import { FIREBASE, OWNER_EMAIL } from "./config.js?v=3";
 
 const DEMO = new URLSearchParams(location.search).has("demo");
 

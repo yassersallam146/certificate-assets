@@ -1,5 +1,5 @@
 /* Offline support: the app itself is cached; forms and lists are cached by data.js */
-const SHELL = "eagle-shell-v2";
+const SHELL = "eagle-shell-v3";
 const FILES = ["./", "index.html", "css/app.css", "manifest.json", "icons/icon-192.png",
   "js/app.js", "js/engine.js", "js/data.js", "js/backend.js", "js/config.js",
   "lib/jszip.min.js", "lib/qrcode.js", "lib/xlsx.mini.min.js",
@@ -13,6 +13,6 @@ self.addEventListener("fetch", e => {
   const u = new URL(e.request.url);
   if (e.request.method !== "GET" || u.origin !== location.origin) return;     // Firebase & GitHub: network
   // network first (always newest app), cached copy when offline
-  e.respondWith(fetch(e.request).then(r => { const c = r.clone(); caches.open(SHELL).then(x => x.put(e.request, c)); return r; })
+  e.respondWith(fetch(e.request, { cache: "no-cache" }).then(r => { const c = r.clone(); caches.open(SHELL).then(x => x.put(e.request, c)); return r; })
     .catch(() => caches.match(e.request).then(r => r || caches.match("index.html"))));
 });
