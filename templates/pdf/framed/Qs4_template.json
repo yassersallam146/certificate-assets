@@ -31,13 +31,13 @@
 {
 "key": "DATE",
 "page": 0,
-"x0": 196.35,
-"x1": 236.33,
+"x0": 232.55,
+"x1": 272.53,
 "y0": 476.33,
 "y1": 490.97,
 "base": 487.75,
 "align": "left",
-"cx": 196.35,
+"cx": 232.55,
 "maxX": 741.61,
 "minX": 38.5,
 "inCell": false,
@@ -46,28 +46,28 @@
 "color": "#4c94d8",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "Carlito-Regular",
 "suffixStyle": {
 "size": 12.0,
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "Carlito-Regular"
 },
-"end": 245.04
+"end": 281.24
 },
 {
 "key": "CITY",
 "page": 0,
-"x0": 247.75,
-"x1": 283.92,
+"x0": 283.95,
+"x1": 320.12,
 "y0": 476.33,
 "y1": 490.97,
 "base": 487.75,
 "align": "left",
-"cx": 247.75,
+"cx": 283.95,
 "maxX": 741.61,
 "minX": 38.5,
 "inCell": false,
@@ -76,20 +76,20 @@
 "color": "#000000",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "Carlito-Regular",
-"end": 283.92
+"end": 320.12
 },
 {
 "key": "QR",
 "page": 0,
-"x0": 389.2,
-"x1": 391.67,
-"y0": 489.75,
-"y1": 490.97,
-"base": 490.7,
+"x0": 462.05,
+"x1": 464.52,
+"y0": 446.55,
+"y1": 447.77,
+"base": 447.5,
 "align": "left",
-"cx": 389.2,
+"cx": 462.05,
 "maxX": 741.61,
 "minX": 38.5,
 "inCell": false,
@@ -98,20 +98,20 @@
 "color": "#ffffff",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "Carlito-Regular",
-"end": 391.67
+"end": 464.52
 },
 {
 "key": "STAMP_HERE",
 "page": 0,
-"x0": 558.95,
-"x1": 565.66,
+"x0": 565.0,
+"x1": 571.71,
 "y0": 458.45,
 "y1": 459.67,
 "base": 459.4,
 "align": "right",
-"cx": 565.66,
+"cx": 571.71,
 "maxX": 741.61,
 "minX": 38.5,
 "inCell": false,
@@ -120,9 +120,9 @@
 "color": "#ffffff",
 "bold": false,
 "italic": false,
-"serif": true,
+"serif": false,
 "font": "Carlito-Regular",
-"end": 565.66
+"end": 571.71
 },
 {
 "key": "SERIAL",
@@ -142,9 +142,14 @@
 "color": "#808080",
 "bold": true,
 "italic": true,
-"serif": true,
+"serif": false,
 "font": "Carlito-BoldItalic",
 "end": 744.11
 }
+],
+"sigCols": [
+313.55,
+60.3,
+229.15
 ]
 }

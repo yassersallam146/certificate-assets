@@ -4,7 +4,7 @@
  * + the values (client, prices, names …), stamp picture, QR code.
  * Needs window.PDFLib and window.fontkit.
  */
-import { joinArabic } from "./arabic.js?v=5";
+import { joinArabic } from "./arabic.js?v=6";
 const AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
 const AR_RUN = /([؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:[ ،؛؟]+[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+)*)/;
 let fontBytes = {};
@@ -84,7 +84,8 @@ async function drawField(page, fonts, f, value, H, startX) {
   if (value === undefined || value === null) return null;
   if (startX !== undefined && f.align === "left") f = { ...f, x0: startX };
   value = String(value);
-  let size = f.size;
+  // Calibri/Carlito text is drawn with Helvetica, which is ~10% wider – keep the same width as Word
+  let size = f.size * (/carlito|calibri/i.test(f.font || "") ? 0.9 : 1);
   let segs = await segments(fonts, f, value);
   const avail = f.align === "center"
     ? (f.inCell ? f.maxX - f.minX : 2 * Math.min(f.cx - f.minX, f.maxX - f.cx))
@@ -130,10 +131,16 @@ export async function drawPdf(bg, layout, values, extra = {}) {
   let prev = null, prevEnd = null;
   // new certificate bottom (Held From | QR | stamp + names): find the 3 column centres
   const qrF = layout.fields.find(x => x.key === "QR"), stF = layout.fields.find(x => x.key === "STAMP_HERE");
-  const cols = qrF && stF ? (() => {
-    // the background keeps an invisible picture of the same size right after each placeholder
-    const mid = (qrF.x0 + qrF.x1 + 43.2) / 2, right = (stF.x0 + stF.x1 + 61.2) / 2;
-    return { left: 2 * mid - right, mid, right, w: (right - mid) / 0.3 * 0.4 };
+  const dateF = layout.fields.find(x => x.key === "DATE");
+  const cols = qrF && stF && layout.sigCols ? (() => {
+    // the stamp column never wraps, so its centre is exact; the others follow from the column widths
+    const [w1, w2, w3] = layout.sigCols;
+    // the "{{DATE}} – {{CITY}}" line is centred in the first column: its middle gives the exact start
+    const cityF = layout.fields.find(x => x.key === "CITY");
+    const start = dateF && cityF ? (dateF.x0 + (cityF.x1 ?? cityF.end)) / 2 - w1 / 2
+                                 : (stF.x0 + stF.x1 + 61.2) / 2 - w1 - w2 - w3 / 2;
+    const right = start + w1 + w2 + w3 / 2;
+    return { left: start + w1 / 2, mid: start + w1 + w2 / 2, right, w: w1, base: dateF ? dateF.base : qrF.base };
   })() : null;
   for (const f of order) {
     const page = pages[f.page]; const H = page.getHeight();
@@ -145,7 +152,7 @@ export async function drawPdf(bg, layout, values, extra = {}) {
         const w = f.key === "QR" ? 43.2 : 61.2, h = w * img.height / img.width;
         if (cols) {                // new forms: centred in its column, standing on its line
           const cx = f.key === "QR" ? cols.mid : cols.right;
-          page.drawImage(img, { x: cx - w / 2, y: H - f.base, width: w, height: h });
+          page.drawImage(img, { x: cx - w / 2, y: H - (f.key === "QR" ? cols.base + 2 : f.base), width: w, height: h });
         } else {                   // older forms (floating text box)
           page.drawImage(img, { x: f.x0, y: H - f.y0 - h * 0.78, width: w, height: h });
         }
