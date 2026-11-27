@@ -1,0 +1,11 @@
+{
+  "yasser": {
+    "display": "Yasser",
+    "salt": "d8ae695da47f0edb7a55fc1df61256b6",
+    "algo": "pbkdf2",
+    "iter": 200000,
+    "hash": "38ba59178fff806d6d4f6043e37ba5cde8de2712a1fd6d72c36301f1faf4d971",
+    "role": "admin",
+    "active": true
+  }
+}
