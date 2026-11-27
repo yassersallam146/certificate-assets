@@ -7,5 +7,14 @@
     "hash": "38ba59178fff806d6d4f6043e37ba5cde8de2712a1fd6d72c36301f1faf4d971",
     "role": "admin",
     "active": true
+  },
+  "elfakharany": {
+    "display": "Elfakharany",
+    "salt": "4d45396e46330a8f76b858f4d1385a55",
+    "algo": "pbkdf2",
+    "iter": 200000,
+    "hash": "ef7479696f694ff7d07f61a161f5ed4909b03b970883070de19fd59c47b1f074",
+    "role": "user",
+    "active": true
   }
 }
