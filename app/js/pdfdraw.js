@@ -4,7 +4,7 @@
  * + the values (client, prices, names …), stamp picture, QR code.
  * Needs window.PDFLib and window.fontkit.
  */
-import { joinArabic } from "./arabic.js?v=7";
+import { joinArabic } from "./arabic.js?v=8";
 const AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
 const AR_RUN = /([؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:[ ،؛؟]+[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+)*)/;
 let fontBytes = {};

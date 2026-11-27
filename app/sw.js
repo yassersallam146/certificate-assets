@@ -1,5 +1,5 @@
 /* Offline support: the app itself is cached; forms and lists are cached by data.js */
-const SHELL = "eagle-shell-v7";
+const SHELL = "eagle-shell-v8";
 const FILES = ["./", "index.html", "css/app.css", "manifest.json", "icons/icon-192.png",
   "js/app.js", "js/engine.js", "js/data.js", "js/backend.js", "js/config.js",
   "lib/jszip.min.js", "lib/qrcode.js", "lib/xlsx.mini.min.js",

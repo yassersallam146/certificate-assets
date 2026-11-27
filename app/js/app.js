@@ -1,9 +1,9 @@
 /* Eagle Generator – web app (phones first) */
-import { getBackend } from "./backend.js?v=7";
-import * as D from "./data.js?v=7";
-import * as E from "./engine.js?v=7";
-import { APP_VERSION } from "./config.js?v=7";
-import { drawPdf } from "./pdfdraw.js?v=7";
+import { getBackend } from "./backend.js?v=8";
+import * as D from "./data.js?v=8";
+import * as E from "./engine.js?v=8";
+import { APP_VERSION } from "./config.js?v=8";
+import { drawPdf } from "./pdfdraw.js?v=8";
 
 const $ = s => document.querySelector(s);
 const view = $("#view");
@@ -103,7 +103,8 @@ screens.home = () => {
       ${admin ? `<button class="tile t4" data-go="history"><span class="ico">🕘</span><b>History</b><span>All employees</span></button>` : ""}
     </div>
     ${admin ? `<h2>Admin</h2>
-      <button class="list-btn" data-go="users"><span class="ico">👥</span><span><b>Users</b><small>Add employees, block, reset passwords</small></span></button>` : ""}`;
+      <button class="list-btn" data-go="users"><span class="ico">👥</span><span><b>Users</b><small>Add employees, block, reset passwords</small></span></button>` : ""}
+    <p class="small muted center" style="padding:18px 0">Developed By Dr. Yasser Sallam - AME</p>`;
   view.querySelectorAll("[data-go]").forEach(b => (b.onclick = () => go(b.dataset.go)));
   $("#fix") && ($("#fix").onclick = e => { e.preventDefault(); go("profile"); });
 };
