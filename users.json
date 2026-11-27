@@ -19,10 +19,10 @@
   },
   "yaser": {
     "display": "yaser",
-    "salt": "50b3cdf21ea3a70d3151b63a3e53bb29",
+    "salt": "9d4b6ab0d81df758be968d89e2cd9970",
     "algo": "pbkdf2",
     "iter": 200000,
-    "hash": "828bf19ef4e6f7cc7f7096476966b59b2a889e834ad9c52bced3b137a8c83c90",
+    "hash": "68d570f6509c85b9466701741f1af538b59fdf1c36dfdc1eff17379818a11a40",
     "role": "user",
     "active": true
   }
