@@ -5,7 +5,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function signedIn() { return request.auth != null; }
-    function isOwner()  { return signedIn() && request.auth.token.email == 'OWNER_EMAIL_HERE'; }
+    function isOwner()  { return signedIn() && request.auth.token.email == 'yasser.m.20@gmail.com'; }
     function profile()  { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data; }
     function hasProfile() { return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)); }
     function active()   { return isOwner() || (hasProfile() && profile().active == true); }

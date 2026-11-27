@@ -10,7 +10,7 @@ export const FIREBASE = {
 
 // The owner (first admin). This e-mail is always admin, even before any
 // user list exists. Must match the e-mail in the Firestore rules.
-export const OWNER_EMAIL = "OWNER_EMAIL_HERE";
+export const OWNER_EMAIL = "yasser.m.20@gmail.com";
 
 // Forms, device lists and logos – the same GitHub repository as the Windows app
 export const GITHUB_RAW = "https://raw.githubusercontent.com/yassersallam146/certificate-assets/main/";
