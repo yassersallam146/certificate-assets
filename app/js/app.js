@@ -72,7 +72,7 @@ screens.login = () => {
     busy(true, "Signing in…");
     try { await B.signIn(em, pw); } catch (e) { busy(false); toast(e.message, true); }
   };
-  $("#go").onclick = doLogin; $("#pw").onkeydown = e => e.key === "Enter" && doLogin();
+  $("#go").onclick = doLogin; $("#pw").onkeydown = e => { if (e.key === "Enter") doLogin(); };
   $("#forgot").onclick = async e => {
     e.preventDefault(); const em = $("#em").value.trim();
     if (!em) return toast("Type your e-mail first, then press Forgot password.", true);
